@@ -1,0 +1,83 @@
+﻿@model IEnumerable<Ejercicio06_Sales.Models.SalesOrderDetail>
+
+@{
+    ViewData["Title"] = "IndexListado04";
+}
+
+<h1>Listado04 - Ventas 2014</h1>
+
+<p>
+    <a asp-action="Index">Volver al Indice</a>
+</p>
+<table class="table tabla-indice">
+    <thead>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.SalesOrder)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CarrierTrackingNumber)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.OrderQty)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ProductID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SpecialOfferID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UnitPrice)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UnitPriceDiscount)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LineTotal)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.rowguid)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ModifiedDate)
+        </th>
+    </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.SalesOrder.SalesOrderID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CarrierTrackingNumber)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.OrderQty)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ProductID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SpecialOfferID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UnitPrice)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UnitPriceDiscount)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LineTotal)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.rowguid)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ModifiedDate)
+        </td>
+    </tr>
+}
+    </tbody>
+</table>
