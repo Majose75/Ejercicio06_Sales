@@ -6,6 +6,7 @@ $(function () {
     // ****** Crear y definir propiedades de tabla '.tabla-indice' ********
     
     $('.tabla-indice').DataTable({
+        ordering:false,
         search: {
             return: false
         },
