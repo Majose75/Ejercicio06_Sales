@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Ejercicio06_Sales.Models;
+using Ejercicio06_Sales.ViewModel;
 
 namespace Ejercicio06_Sales.Controllers
 {
@@ -24,6 +25,30 @@ namespace Ejercicio06_Sales.Controllers
             var adventureWorks2016Context = _context.SalesOrderDetail.Include(s => s.SalesOrder);
             return View(await adventureWorks2016Context.Take(2000).ToListAsync());
         }
+        //Ejercicios nuevos
+        public async Task<IActionResult> ListadoVentasProductos()
+        {
+            var resultado = from SalesODetails in _context.SalesOrderDetail.Take(500)
+                join Producto in _context.Product
+                    on SalesODetails.ProductID equals Producto.ProductID
+                select new ListadoVentasProductosViewModel()
+                {
+                    Id = SalesODetails.ProductID,
+                    CodProducto=Producto.ProductID,
+                    NombreProducto = Producto.Name,
+                    ColorProducto =Producto.Color,
+                    CantidadProducto=SalesODetails.OrderQty,
+                    PrecioProducto= SalesODetails.UnitPrice,
+                    TotalProducto= SalesODetails.LineTotal
+                };
+
+            return View(resultado);
+        }
+
+
+
+
+
         // Todos los listados ordenados por fecha ascendente y por nombre del producto(id)  ModifiedDate
         // Ventas 2011. CarrierTrackingNumber que no acaben en letra. 
         public async Task<IActionResult> IndexListado01()

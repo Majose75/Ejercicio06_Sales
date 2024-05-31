@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
+using Ejercicio06_Sales.ViewModel;
 
 namespace Ejercicio06_Sales.Models;
 
@@ -242,4 +243,6 @@ public partial class AdventureWorks2016Context : DbContext
     }
 
     partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
+
+public DbSet<Ejercicio06_Sales.ViewModel.ListadoVentasProductosViewModel> ListadoVentasProductosViewModel { get; set; } = default!;
 }
