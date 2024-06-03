@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Common;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -31,6 +32,7 @@ namespace Ejercicio06_Sales.Controllers
             var resultado = from SalesODetails in _context.SalesOrderDetail.Take(500)
                 join Producto in _context.Product
                     on SalesODetails.ProductID equals Producto.ProductID
+                    
                 select new ListadoVentasProductosViewModel()
                 {
                     Id = SalesODetails.ProductID,
@@ -44,7 +46,33 @@ namespace Ejercicio06_Sales.Controllers
 
             return View(resultado);
         }
+        // Listado ordenado por Nombre y Color cuyas ventas tienen más de 2 de cantidad.  Agrupado por Color.
+        public async Task<IActionResult> ListadoVentasAgrupadoPorColor()
+        {
+            var resultado = from SalesODetails in _context.SalesOrderDetail.Take(500)
+                join Producto in _context.Product
+                    on SalesODetails.ProductID equals Producto.ProductID
+                where SalesODetails.OrderQty > 2
+                orderby Producto.Name, Producto.Color
+                select new ListadoVentasProductosViewModel()
+                {
+                    Id = SalesODetails.ProductID,
+                    CodProducto = Producto.ProductID,
+                    NombreProducto = Producto.Name,
+                    ColorProducto = Producto.Color,
+                    CantidadProducto = SalesODetails.OrderQty,
+                    PrecioProducto = SalesODetails.UnitPrice,
+                    TotalProducto = SalesODetails.LineTotal
+                };
 
+            var resultadoColor = resultado.GroupBy(item => item.ColorProducto).Select(item =>
+                new ListadoAgrupadoPorColor()
+                {
+                    Color=item.Key,
+                    ListaVentasporColor = new List<ListadoVentasProductosViewModel>(item.ToList())
+                });
+            return View(resultadoColor);
+        }
 
 
 

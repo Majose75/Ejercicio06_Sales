@@ -1,0 +1,72 @@
+﻿@model IEnumerable<Ejercicio06_Sales.ViewModel.ListadoAgrupadoPorColor>
+
+@{
+    ViewData["Title"] = "ListadoVentasAgrupadoPorColor";
+}
+
+<h1>Listado de Ventas Agrupado Por Color</h1>
+
+<p>
+    <a asp-action="Index">Volver al Indice</a>
+</p>
+<table class="table tabla-indice">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Color)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ListaVentasporColor.First().NombreProducto)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ListaVentasporColor.First().ColorProducto))
+                </th>
+                <th>
+                @Html.DisplayNameFor(model => model.ListaVentasporColor.First().CodProducto)
+                </th>
+                <th>
+                @Html.DisplayNameFor(model => model.ListaVentasporColor.First().CantidadProducto)
+                </th>
+                <th>
+                @Html.DisplayNameFor(model => model.ListaVentasporColor.First().PrecioProducto)
+                </th>
+                <th>
+                @Html.DisplayNameFor(model => model.ListaVentasporColor.First().TotalProducto)
+                </th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td class="bg-dark bg-opacity-25" colspan="7">
+                @Html.DisplayFor(modelItem => item.Color)
+            </td>
+            @foreach (var item2 in item.ListaVentasporColor)
+            {
+                <tr>
+                    <td></td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item2.NombreProducto)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item2.ColorProducto)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item2.CodProducto)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item2.CantidadProducto)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item2.PrecioProducto)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item2.TotalProducto)
+                        </td>
+                        </tr>
+            }
+
+        </tr>
+}
+    </tbody>
+</table>
